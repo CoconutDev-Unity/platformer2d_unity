@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float speedx = -1f;
     [SerializeField] private Animator animator;
+    [SerializeField] private Transform playerCharacterTransform;
 
     private float _Horizontal = 0f;
     private bool _isGround = false;
@@ -64,9 +65,9 @@ public class PlayerController : MonoBehaviour
     
     void Flip() {
         isFacingRight = !isFacingRight;
-        Vector3 playerScale = transform.localScale;
+        Vector3 playerScale = playerCharacterTransform.localScale;
         playerScale.x *= -1;
-        transform.localScale = playerScale;
+        playerCharacterTransform.localScale = playerScale;
     }
 
     void OnCollisionEnter2D (Collision2D other) {
