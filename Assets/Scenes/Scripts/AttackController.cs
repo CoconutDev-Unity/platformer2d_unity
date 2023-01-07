@@ -17,10 +17,5 @@ public class AttackController : MonoBehaviour
             _isAttack = true;
             animator.SetTrigger("Attack");
         }
-
-        if (Input.GetMouseButtonDown(1)) {
-            _isAttack2 = true;
-            animator.SetTrigger("Attack2");
-        }
     }
 }
