@@ -8,7 +8,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float walkSpeed = 0.06f;
     [SerializeField] private float timeToWait = 2f;
     [SerializeField] private float timeToChase = 10f;
-    [SerializeField] private float minDistanceToPlayer = 1.5f ;
+    [SerializeField] private float minDistanceToPlayer = 1.5f;
+    [SerializeField] private Transform enemyModelTransform;
 
     private Rigidbody2D _rb;
     private Transform _playerTransform;
@@ -62,7 +63,7 @@ public class EnemyController : MonoBehaviour
     private void FixedUpdate() {
         nextPoint = Vector2.right * walkSpeed * Time.fixedDeltaTime;
 
-        if (Mathf.Abs(DistanceToPlayer()) < minDistanceToPlayer && _isChasingPlayer) {
+        if (Mathf.Abs(DistanceToPlayer()) < minDistanceToPlayer) {
             return;
         }
 
@@ -107,9 +108,9 @@ public class EnemyController : MonoBehaviour
 
     void Flip() {
         _isFacingRight = !_isFacingRight;
-        Vector3 playerScale = transform.localScale;
+        Vector3 playerScale = enemyModelTransform.localScale;
         playerScale.x *= -1;
-        transform.localScale = playerScale;
+        enemyModelTransform.localScale = playerScale;
     }
 
     private float DistanceToPlayer() {
