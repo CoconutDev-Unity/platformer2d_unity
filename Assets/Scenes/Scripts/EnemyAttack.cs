@@ -18,7 +18,7 @@ public class EnemyAttack : MonoBehaviour
         if (!_isDamage) {
             _damageTime -= Time.deltaTime;
 
-            if (_damageTime <= 0f) {
+            if (_damageTime < 0f) {
                 _isDamage = true;
                 _damageTime = timeToDamage;
             }
