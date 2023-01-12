@@ -5,9 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class GameOverScreen : MonoBehaviour
 {
+    [SerializeField] private GameObject PauseCanvas;
+    [SerializeField] private GameObject GameOverCanvas;
     public void RestartHandler() {
+        PauseCanvas.SetActive(false);
+        GameOverCanvas.SetActive(false);
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
+
     }
 
     public void MainMenuHandler() {
