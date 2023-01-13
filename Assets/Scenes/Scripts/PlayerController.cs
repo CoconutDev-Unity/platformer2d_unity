@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rb;
     private Finish _finish;
     private LeverArm _leverArm;
-
+    [SerializeField] private AudioSource jumpSound;
     const float speedxMultiplier = 50f;
     private bool isFacingRight = true;
 
@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W) && _isGround) {
             _isJump = true;
+
+            jumpSound.Play();
         }
 
         if (Input.GetKeyDown(KeyCode.F)) {
@@ -80,7 +82,6 @@ public class PlayerController : MonoBehaviour
         LeverArm _leverArmTemp = other.GetComponent<LeverArm>();
 
         if (other.CompareTag("Finish")) {
-            Debug.Log("Worked");
             _isFinish = true;
         }
 
@@ -93,7 +94,6 @@ public class PlayerController : MonoBehaviour
         LeverArm _leverArmTemp = other.GetComponent<LeverArm>();
 
         if (other.CompareTag("Finish")) {
-            Debug.Log("Not worked");
             _isFinish = false;
         }
 

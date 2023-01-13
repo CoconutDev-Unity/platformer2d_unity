@@ -11,14 +11,15 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private Animator _animator;
 
     private float _health;
+    [SerializeField] private AudioSource hitSound;
 
     private void Start() {
         _health = totalHealth;
-        InitHealth();
     }
 
     public void ReduceHealth(float damage) {
         _health -= damage;
+        hitSound.Play();
         InitHealth();
         _animator.SetTrigger("Is_Taking_Damage");
         if (_health <= 0f) {

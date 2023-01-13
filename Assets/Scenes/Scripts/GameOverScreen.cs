@@ -12,7 +12,7 @@ public class GameOverScreen : MonoBehaviour
         GameOverCanvas.SetActive(false);
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
-
+        Time.timeScale = 1f;
     }
 
     public void MainMenuHandler() {
