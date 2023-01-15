@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Finish : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class Finish : MonoBehaviour
 
     public void FinishLevel() {
         if (_isActivated) {
-            gameObject.SetActive(false);
+            SceneManager.LoadScene(2);
         }
     }
 }
