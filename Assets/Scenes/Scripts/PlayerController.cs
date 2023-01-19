@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speedx = -1f;
     [SerializeField] private Animator animator;
     [SerializeField] private Transform playerCharacterTransform;
+    [SerializeField] private FixedJoystick fixedJoystick;
 
     private float _Horizontal = 0f;
     private bool _isGround = false;
@@ -28,28 +29,43 @@ public class PlayerController : MonoBehaviour
     }
 
     void Update() {
-        _Horizontal = Input.GetAxis("Horizontal"); //-1 : 1
+        //_Horizontal = Input.GetAxis("Horizontal"); //-1 : 1
+        _Horizontal = fixedJoystick.Horizontal;
         animator.SetFloat("Speedx", Mathf.Abs(_Horizontal));
+        
+        // if (Input.GetKeyDown(KeyCode.F)) {
+        //     Interact();
+        // }
+    }
 
-        if (Input.GetKeyDown(KeyCode.W) && _isGround) {
-            _isJump = true;
-
-            jumpSound.Play();
+    public void Interact() {
+        if (_isFinish) {
+            _finish.FinishLevel();
         }
 
-        if (Input.GetKeyDown(KeyCode.F)) {
-            if (_isFinish) {
-                _finish.FinishLevel();
-            }
-
-            if (_isLeverArm) {
-                _leverArm.ActivateLeverArm();
-            }
+        if (_isLeverArm) {
+            _leverArm.ActivateLeverArm();
         }
     }
 
     void FixedUpdate() {
         _rb.velocity = new Vector2(_Horizontal * speedx * speedxMultiplier * Time.fixedDeltaTime, _rb.velocity.y);
+
+        
+
+        if (_Horizontal > 0f && !isFacingRight) {
+            Flip();
+        } else if (_Horizontal < 0f && isFacingRight) {
+            Flip();
+        }
+    }
+
+    public void Jump() {
+        if (_isGround) {
+            _isJump = true;
+
+            jumpSound.Play();
+        }
 
         if (_isJump) {
             _rb.AddForce(new Vector2 (0f, 850f));
@@ -57,12 +73,7 @@ public class PlayerController : MonoBehaviour
             _isGround = false;
             _isJump = false;
         }
-
-        if (_Horizontal > 0f && !isFacingRight) {
-            Flip();
-        } else if (_Horizontal < 0f && isFacingRight) {
-            Flip();
-        }
+        
     }
     
     void Flip() {
